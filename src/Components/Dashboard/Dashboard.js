@@ -1,20 +1,15 @@
 import React, { Component } from 'react'
-// import Product from './Components/Product/Product';
 import Product from '../Product/Product';
 
 export default class Dashboard extends Component {
-    constructor(props) {
-        super(props);
-        this.state ={
-            productArr: []
-        }
-    }
-
     render() {
 
-    // let mappedProduct = this.state.productArray.map((e, index) =>{
-    //         return(<h2 key= {index}>{e}</h2>)
-    // })
+
+        let displayProducts= this.props.inventory.map((item, index) => {
+            return <div key={ index }>
+                        <Product {...item} handleDelete={this.props.handleDelete}/>
+                    </div>
+      })
     
 
     
@@ -23,8 +18,7 @@ export default class Dashboard extends Component {
           <div>
               Dashboard
           </div>
-          <Product />
-          {/* {mappedProduct} */}
+            { displayProducts }
           </div>
         );
     }}
