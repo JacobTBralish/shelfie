@@ -12,10 +12,12 @@ class App extends Component {
       name:'',
       price:'',
       img:'',
-      inventory: []
+      inventory: [],
+      editedProduct: {}
     }
 
     this.handleDelete = this.handleDelete.bind(this);
+    this.handleEdit = this.handleEdit.bind(this)
     
   }
 
@@ -24,10 +26,21 @@ class App extends Component {
       this.setState({ inventory: response.data})
     }).catch(error => console.log(error))
 }
+
+
   handlePost( name, price, img ){
     axios.post('/api/inventory', {name, price, img}).then(response => {
       this.setState( { inventory: response.data } )
     }).catch(error => console.log(error))
+  }
+
+  handleEdit( id, name, price, img){
+    axios.put(`/api/inventory/${ id }`, { name,price,img }).then( response => {
+      console.log(response.data)
+      this.setState({
+        editedProduct: response.data
+      })
+    })
   }
 
   handleDelete( id ){
@@ -89,7 +102,7 @@ class App extends Component {
           <button onClick={() => this.handlePost( name, price, img ) }>Add to Inventory</button>
 
 
-        <Dashboard inventory={this.state.inventory} handleDelete={this.handleDelete} />
+        <Dashboard inventory={this.state.inventory} handleDelete={this.handleDelete} handleEdit={ this.handleEdit } />
 
         <Form />
 

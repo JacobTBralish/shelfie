@@ -24,10 +24,17 @@ module.exports = {
 
 
 
-    // editProduct: ( req, res ) => {
-    //     const db = req.app.get('db');
-    //     let { name, price, img  } = req.body;
-    // }
+    editProduct: ( req, res ) => {
+        const db = req.app.get('db');
+        let { name, price, img } = req.body;
+        let { id } = req.params
+
+        db.edit_product( [id, name, price, img] ).then(product => {
+            res.status(200).json(product)}).catch(error => {
+                res.status(500).json( {errormessage: 'Unable to edit your item at this time!'})
+                console.log(error)
+            })
+    },
 
     deleteProduct: ( req, res ) => {
         const db = req.app.get('db');

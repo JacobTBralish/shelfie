@@ -7,7 +7,7 @@ export default class Dashboard extends Component {
 
         let displayProducts= this.props.inventory.map((item, index) => {
             return <div key={ index }>
-                        <Product {...item} handleDelete={this.props.handleDelete}/>
+                        <Product {...item} handleDelete={this.props.handleDelete} handleEdit={this.props.handleEdit}/>
                     </div>
       })
     
